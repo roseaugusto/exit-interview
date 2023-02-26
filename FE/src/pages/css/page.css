@@ -9,4 +9,5 @@ main {
 .b-example-vr {
   flex-shrink: 0;
   height: 100vh;
+  overflow: auto;
 }

@@ -1,10 +1,20 @@
 import React from 'react';
+import { apiRequest } from '../../utils/apiRequest';
 
-export const Sidebar = () => {
+export const Sidebar = ({ isAdmin }) => {
+  const logout = async () => {
+    await apiRequest.post('logout', {}).then(() => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    });
+  };
   return (
     <>
       <div
-        className='d-flex flex-column flex-shrink-0 p-3 text-white bg-primary-indigo sidebar d-none d-lg-block'
+        className={`d-flex flex-column flex-shrink-0 p-3 text-white ${
+          isAdmin ? 'bg-primary-indigo' : 'bg-main-student'
+        } sidebar d-none d-lg-block`}
         style={{ width: '280px' }}
       >
         <a
@@ -15,29 +25,30 @@ export const Sidebar = () => {
         </a>
         <hr />
         <ul className='nav nav-pills flex-column mb-auto'>
-          <li>
-            <a href='/admin/dashboard' className='nav-link text-white'>
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a href='/responses' className='nav-link text-white'>
-              Responses
-            </a>
-          </li>
+          {isAdmin ? (
+            <>
+              <li>
+                <a href='/admin/dashboard' className='nav-link text-white'>
+                  Dashboard
+                </a>
+              </li>
+            </>
+          ) : null}
           <li>
             <a href='/forms' className='nav-link text-white'>
               Forms
             </a>
           </li>
-          <li>
-            <a href='/users' className='nav-link text-white'>
-              Users
-            </a>
-          </li>
+          {isAdmin ? (
+            <li>
+              <a href='/users' className='nav-link text-white'>
+                Users
+              </a>
+            </li>
+          ) : null}
         </ul>
         <hr />
-        <h5>Logout</h5>
+        <h5 onClick={logout}>Logout</h5>
       </div>
     </>
   );

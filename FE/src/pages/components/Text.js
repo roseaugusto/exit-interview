@@ -17,7 +17,7 @@ export const Text = ({
         type='text'
         className='form-control'
         value={value.answer}
-        onChange={(e) => handleOnChange(value.questionid, 'answer', e.target.value)}
+        onChange={(e) => handleOnChange(value.questionid, 'description', e.target.value)}
       />
     </div>
   );

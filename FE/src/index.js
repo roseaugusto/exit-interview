@@ -4,12 +4,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Page } from './pages/Page';
 import { Survey } from './pages/Survey';
 import { Form } from './pages/Form';
-import { FormDetail } from './pages/FormDetail';
 import { AddOrUpdateForm } from './pages/AddOrUpdateForm';
 import { AdminDashboard } from './pages/AdminDashboard';
-import { StudentDashboard } from './pages/StudentDashboard';
-import { Responses } from './pages/Responses';
+import { SurveyResponses } from './pages/SurveyResponses';
+import { SurveyResponseDetail } from './pages/SurveyResponseDetail';
 import { Users } from './pages/Users';
+import { Register } from './pages/Register';
+import { Login } from './pages/Login';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -22,14 +23,15 @@ root.render(
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
 
         <Route path='/forms' element={<Form />} />
-        <Route path='/form/:id/details' element={<FormDetail />} />
         <Route path='/form/:id/update' element={<AddOrUpdateForm />} />
         <Route path='/form/add' element={<AddOrUpdateForm />} />
         <Route path='/users' element={<Users />} />
-        <Route path='/responses' element={<Responses />} />
 
-        <Route path='/dashboard' element={<StudentDashboard />} />
         <Route path='/survey/:id' element={<Survey />} />
+        <Route path='/survey/:id/responses' element={<SurveyResponses />} />
+        <Route path='/survey/:id/responses/:user_form_id' element={<SurveyResponseDetail />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </Router>
   </React.StrictMode>,

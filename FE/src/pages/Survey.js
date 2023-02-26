@@ -14,16 +14,16 @@ export const Survey = () => {
 
   const fetchData = async () => {
     const form = await apiRequest
-      .get(`/form.php?id=${id}`)
+      .get(`/form/${id}`)
       .then((res) => {
-        return res.data[0] || {};
+        return res.data || {};
       })
       .catch((error) => {
         console.log(error);
       });
 
     const questions = await apiRequest
-      .get(`/question.php?isList=true&id=${form.id}`)
+      .get(`/form/${form.id}/questions`)
       .then((res) => {
         return res.data;
       })
@@ -32,7 +32,7 @@ export const Survey = () => {
       });
 
     const options = await apiRequest
-      .get('/question_options.php')
+      .get('/options')
       .then((res) => {
         return res.data;
       })
@@ -47,11 +47,12 @@ export const Survey = () => {
 
   const onSubmit = async () => {
     await apiRequest
-      .post(`/answer.php`, {
-        arr,
+      .post(`/answer`, {
+        answers: arr,
       })
       .then((res) => {
-        console.log(res.data);
+        alert('Successfully submitted');
+        window.location.href = '/forms';
       })
       .catch((error) => {
         console.log(error);
@@ -69,9 +70,9 @@ export const Survey = () => {
   const answers = {
     answerid: null,
     questionid: null,
-    answer: null,
+    description: null,
     answerOptionId: null,
-    userid: 1,
+    formid: id,
   };
   const arr = [];
 
@@ -116,7 +117,9 @@ export const Survey = () => {
     <Page>
       <h4 className='text-center mb-3'>{form.name}</h4>
       {questions.map((key, index) => (
-        <div key={index}>{fields(key)}</div>
+        <div key={index}>
+          <h5>Question {index + 1}</h5> {fields(key)}
+        </div>
       ))}
       <button className='btn btn-primary' onClick={onSubmit}>
         submit
