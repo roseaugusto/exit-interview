@@ -80,6 +80,7 @@ export const Form = () => {
                     <button
                       className='btn btn-danger btn-sm px-4 mx-2'
                       onClick={() => deleteData(key.id)}
+                      disabled={key.responses && key.responses.length > 0}
                     >
                       Delete
                     </button>

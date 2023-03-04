@@ -93,6 +93,9 @@ export const AddOrUpdateForm = () => {
         q[i] = { ...q[i], existOptions: exValues };
       }
     } else {
+      if (key === 'isRequired' || key === 'isFilter') {
+        value = value === 'true' ? 1 : 0;
+      }
       q[i] = { ...q[i], [key]: value };
     }
     setQuestions(q);
